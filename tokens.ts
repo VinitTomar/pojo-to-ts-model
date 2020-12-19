@@ -14,17 +14,16 @@ const SEMICOLON = createToken({ name: 'Semicolon', pattern: /;/ });
  * Primitive data type tokens
  */
 
-const INT = createToken({ name: 'Int', pattern: /int/ });
-const CHAR = createToken({ name: 'Char', pattern: /char/ });
-const LONG = createToken({ name: 'Long', pattern: /long/ });
-const FLOAT = createToken({ name: 'Float', pattern: /float/ });
-const DOUBLE = createToken({ name: "Double", pattern: /double/ });
-const BOOLEAN = createToken({ name: 'Boolean', pattern: /boolean/ });
+const INT = createToken({ name: 'Int', pattern: /int/, longer_alt: IDENTIFIER });
+const CHAR = createToken({ name: 'Char', pattern: /char/, longer_alt: IDENTIFIER });
+const LONG = createToken({ name: 'Long', pattern: /long/, longer_alt: IDENTIFIER });
+const FLOAT = createToken({ name: 'Float', pattern: /float/, longer_alt: IDENTIFIER });
+const DOUBLE = createToken({ name: "Double", pattern: /double/, longer_alt: IDENTIFIER });
+const BOOLEAN = createToken({ name: 'Boolean', pattern: /boolean/, longer_alt: IDENTIFIER });
 
 
 export const Tokens = {
   WHITESPACE,
-  IDENTIFIER,
   CLASS,
   PUBLIC_ACCESS_SPECIFIER,
   PRIVATE_ACCESS_SPECIFIER,
@@ -37,7 +36,8 @@ export const Tokens = {
   LONG,
   FLOAT,
   DOUBLE,
-  BOOLEAN
+  BOOLEAN,
+  IDENTIFIER,
 };
 
 export const allTokens = Object.keys(Tokens).map(key => Tokens[key]);
