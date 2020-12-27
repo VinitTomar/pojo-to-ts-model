@@ -1,7 +1,6 @@
 import { CstParser } from "chevrotain";
 import { allTokens, Tokens } from "./tokens";
 
-
 export class PojoParser extends CstParser {
 
   constructor() {
@@ -60,4 +59,10 @@ export class PojoParser extends CstParser {
     ]);
   });
 
+}
+
+const pojoParseObj = new PojoParser();
+
+export {
+  pojoParseObj
 }
