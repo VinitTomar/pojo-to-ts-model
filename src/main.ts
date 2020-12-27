@@ -5,10 +5,11 @@
 
 import { PojoLexer } from './lexer';
 import { fileReader } from './async-file-reader';
-import { PojoParser } from './parser';
+import { pojoParseObj } from './parser';
+import { PojoVisitor } from './visitor';
 
 (async () => {
-  const parser = new PojoParser();
+  const parser = pojoParseObj
 
   const fileText: string = (await fileReader('sample.java')).toString();
 
@@ -26,5 +27,11 @@ import { PojoParser } from './parser';
   }
 
   console.log({ cst });
+
+  const cstToAstVisitorObj = new PojoVisitor();
+
+  const ast = cstToAstVisitorObj.visit(cst);
+
+  console.log({ ast });
 
 })();
