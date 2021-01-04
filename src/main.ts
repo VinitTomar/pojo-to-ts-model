@@ -7,6 +7,7 @@ import { PojoLexer } from './lexer';
 import { fileReader } from './async-file-reader';
 import { pojoParseObj } from './parser';
 import { PojoVisitor } from './visitor';
+import { pojoClassConverter } from './code-generator';
 
 (async () => {
   const parser = pojoParseObj
@@ -33,5 +34,8 @@ import { PojoVisitor } from './visitor';
   const ast = cstToAstVisitorObj.visit(cst);
 
   console.log({ ast });
+
+  const pojoClassInTsClassString = pojoClassConverter(ast);
+  console.log(pojoClassInTsClassString);
 
 })();

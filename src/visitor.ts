@@ -22,30 +22,30 @@ export class PojoVisitor extends BasePojoVisitor {
   classBody(ctx: CstChildrenDictionary) {
     return {
       type: "CLASS_BODY",
-      classMembers: ctx.classMembers.map(mem => this.visit(mem as CstNode | CstNode[]))
+      classFields: ctx.classField.map(mem => this.visit(mem as CstNode | CstNode[]))
     };
   }
 
-  classMembers(ctx: CstChildrenDictionary) {
+  classField(ctx: CstChildrenDictionary) {
     return {
-      type: 'CLASS_MEMBERS',
-      accessibility: ctx.memberAccessibility ? this.visit(ctx.memberAccessibility as CstNode | CstNode[]) : null,
-      memberType: this.visit(ctx.memberType as CstNode | CstNode[]),
-      memberName: (ctx.Identifier[0] as IToken).image
+      type: 'CLASS_FIELD',
+      accessibility: ctx.fieldAccessibility ? this.visit(ctx.fieldAccessibility as CstNode | CstNode[]) : null,
+      fieldType: this.visit(ctx.fieldType as CstNode | CstNode[]),
+      fieldName: (ctx.Identifier[0] as IToken).image
     };
   }
 
-  memberType(ctx: CstChildrenDictionary) {
+  fieldType(ctx: CstChildrenDictionary) {
     return {
-      type: 'MEMBER_TYPE',
+      type: 'FIELD_TYPE',
       dataType: ctx[Object.keys(ctx)[0]][0]['image']
     };
   }
 
-  memberAccessibility(ctx: CstChildrenDictionary) {
+  fieldAccessibility(ctx: CstChildrenDictionary) {
     return {
-      type: 'MEMBER_ACCESSIBILITY',
-      dataType: ctx[Object.keys(ctx)[0]][0]['image']
+      type: 'FIELD_ACCESSIBILITY',
+      accessibilityType: ctx[Object.keys(ctx)[0]][0]['image']
     };
   }
 
