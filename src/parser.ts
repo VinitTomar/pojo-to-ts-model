@@ -24,22 +24,22 @@ export class PojoParser extends CstParser {
   private classBody = this.RULE('classBody', () => {
     this.AT_LEAST_ONE({
       DEF: () => {
-        this.SUBRULE(this.classMembers);
+        this.SUBRULE(this.classField);
       }
     });
   });
 
-  private classMembers = this.RULE('classMembers', () => {
+  private classField = this.RULE('classField', () => {
     this.OPTION(() => {
-      this.SUBRULE(this.memberAccessibility);
+      this.SUBRULE(this.fieldAccessibility);
     });
 
-    this.SUBRULE(this.memberType);
+    this.SUBRULE(this.fieldType);
     this.CONSUME(Tokens.IDENTIFIER);
     this.CONSUME(Tokens.SEMICOLON);
   });
 
-  private memberType = this.RULE('memberType', () => {
+  private fieldType = this.RULE('fieldType', () => {
     this.OR([
       { ALT: () => this.CONSUME(Tokens.INT) },
       { ALT: () => this.CONSUME(Tokens.DOUBLE) },
@@ -51,7 +51,7 @@ export class PojoParser extends CstParser {
     ]);
   });
 
-  private memberAccessibility = this.RULE('memberAccessibility', () => {
+  private fieldAccessibility = this.RULE('fieldAccessibility', () => {
     this.OR([
       { ALT: () => this.CONSUME(Tokens.PRIVATE_ACCESS_SPECIFIER) },
       { ALT: () => this.CONSUME(Tokens.PUBLIC_ACCESS_SPECIFIER) },
