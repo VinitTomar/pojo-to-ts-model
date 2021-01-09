@@ -8,6 +8,7 @@ import { fileReader } from './async-file-reader';
 import { pojoParseObj } from './parser';
 import { PojoVisitor } from './visitor';
 import { pojoClassConverter } from './code-generator';
+import { fileWriter } from './async-file-writer';
 
 (async () => {
   const parser = pojoParseObj
@@ -27,15 +28,12 @@ import { pojoClassConverter } from './code-generator';
     throw new Error(msg.join('\n'));
   }
 
-  console.log({ cst });
-
   const cstToAstVisitorObj = new PojoVisitor();
 
   const ast = cstToAstVisitorObj.visit(cst);
 
-  console.log({ ast });
+  const tsClassResult = pojoClassConverter(ast);
 
-  const pojoClassInTsClassString = pojoClassConverter(ast);
-  console.log(pojoClassInTsClassString);
+  fileWriter(tsClassResult[0] + ".ts",tsClassResult[1]);
 
 })();
