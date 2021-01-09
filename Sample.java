@@ -4,4 +4,5 @@ public class Sample {
   private int num;
   protected double dbl3;
   String newName;
+  public boolean boolvar;
 }

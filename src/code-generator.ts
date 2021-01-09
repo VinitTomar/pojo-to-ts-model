@@ -57,16 +57,16 @@ const classBodyConverter = (item: ClassBody): string => {
   }, '');
 }
 
-const pojoClassConverter = (item: PojoClass): string => {
+const pojoClassConverter = (item: PojoClass): [string, string] => {
   if (item.type !== 'POJO_CLASS') {
     throw new Error("Item type is not POJO_CLASS");
   }
 
-  const publicAccessSpecifierString = item.hasPublicAccessSpecifier ? 'public' : '';
+  const publicAccessSpecifierString = item.hasPublicAccessSpecifier ? 'export' : '';
 
-  return `${publicAccessSpecifierString} class ${item.className} {
-    ${classBodyConverter(item.classBody)}
-  }`;
+  const fileContent = `${publicAccessSpecifierString} class ${item.className} {\n${classBodyConverter(item.classBody)}}`;
+
+  return [item.className, fileContent];
 }
 
 export { pojoClassConverter };
